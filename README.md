@@ -6,7 +6,7 @@ It uses the concept of localised similarilty to try and give an intuitive visual
 
 ## Demo
 
-k is the localarity level, S the measure of entropy.  Compare random and ordered grids of the same size, S should be higher (lower entropy) for more ordered boards. 
+k is the localarity level (size of grid that sums squares), S the measure of entropy, from Inf to 0.  Comparing random and ordered grids of the same size, S should be lower for more ordered boards at the interesting level of granularity.  For very small `k=1` its the same as the original matrix, for very large `k=N` everything averages out and no features are detected. 
 
 ## Outputs
 
@@ -14,7 +14,7 @@ A random 100 binary matrix has `2^10^2 = 1.267651e+30` possible states.
 
 ![](random_100.png)
 
-Chess board: S is 0.5 for all
+Chess board:
 
 ```r
 chess <- matrix(rep(c(rep(c(1, 0), 4), rep(c(0,1), 4)), 4), nrow = 8)
@@ -22,19 +22,19 @@ chess <- matrix(rep(c(rep(c(1, 0), 4), rep(c(0,1), 4)), 4), nrow = 8)
 
 plot_ks(chess)
          1          2          3          4          5          6          7          8 
-       Inf 33.9642118 25.1769039 17.3286795 11.1031651  6.2383246  2.7734219  0.6931472 
+       Inf 275.120782 186.439894 116.096405  64.018481  28.529325   8.001202   0.000000 
 ```
 
 ![](chess.png)
 
-Random board: S is higher at all levels of neighbourhoods (k)
+Random board:
 
 ```r
 my_matrix <- test_matrix(8)
 plot_ks(my_matrix)
 
          1          2          3          4          5          6          7          8 
-       Inf        Inf 23.4858626 14.4746664  9.2703745  5.5500607  2.4971547  0.6325226 
+       Inf        Inf 188.909173 116.743077  64.146206  28.551523   8.007139   0.000000 
 ```
 
 ![](random_8.png)
