@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# Matrix entropy visualisation\n\nR version of this python implementation of *Measuring entropy patterns of a 2d binary matrix* by William Huber using Mathematica at https://github.com/MarkEdmondson1234/matrix-entropy\n\n",
+    "created" : 1504776363158.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3237888742",
+    "id" : "BB5DCE2E",
+    "lastKnownWriteTime" : 1504776437,
+    "last_content_update" : 1504776437080,
+    "path" : "~/dev/R/entropyMatrixViz/README.md",
+    "project_path" : "README.md",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}
