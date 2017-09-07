@@ -10,7 +10,7 @@ k is the localarity level, S the measure of entropy.  Compare random and ordered
 
 ## Outputs
 
-A random 100 binary matrix
+A random 100 binary matrix has `2^10^2 = 1.267651e+30` possible states. 
 
 ![](random_100.png)
 
@@ -38,3 +38,9 @@ plot_ks(my_matrix)
 ```
 
 ![](random_8.png)
+
+```r
+m_lowest <- low_matrix(8)
+plot_ks(m_lowest)
+```
+
