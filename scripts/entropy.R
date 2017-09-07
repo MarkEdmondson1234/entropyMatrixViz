@@ -30,7 +30,7 @@ all_ks <- function(my_matrix){
   my_dim <- dim(my_matrix)
   along <- 1:(min(my_dim))
   along <- setNames(along, along)
-  map_dbl(along, ~ mean(f_subset(my_matrix, .)))
+  map_dbl(along, ~ sum(log(f_subset(my_matrix, .)))*(-1))
 }
 
 plot_ks <- function(my_matrix){
@@ -53,15 +53,22 @@ plot_ks <- function(my_matrix){
   along
 }
 
-my_matrix <- test_matrix(10)
+my_matrix <- test_matrix(8)
 mm <- matrix(c(1,0,0,0,1,0,0,1,0,0,0,1,0,1,1,1,0,0,0,0,0,1,0,1,1), nrow = 5, byrow = TRUE)
+life <- matrix(c(0,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0), nrow = 5, byrow = TRUE)
 chess <- matrix(rep(c(rep(c(1, 0), 4), rep(c(0,1), 4)), 4), nrow = 8)
-m_lowest <- low_matrix(5)
-mm_big <- test_matrix(100)
-m_big_lowest <- low_matrix(100)
+m_highest <- low_matrix(8)
+m_lowest <- low_matrix(8, x = 0)
 
 plot_ks(mm)
 plot_ks(chess)
+plot_ks(test_matrix(8))
+plot_ks(life)
+plot_ks(my_matrix)
 plot_ks(m_lowest)
+plot_ks(m_highest)
+
+mm_big <- test_matrix(100)
+m_big_lowest <- low_matrix(100)
 plot_ks(mm_big)
 plot_ks(m_big_lowest)
