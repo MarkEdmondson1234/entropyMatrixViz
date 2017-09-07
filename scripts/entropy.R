@@ -55,13 +55,13 @@ plot_ks <- function(my_matrix){
 
 my_matrix <- test_matrix(10)
 mm <- matrix(c(1,0,0,0,1,0,0,1,0,0,0,1,0,1,1,1,0,0,0,0,0,1,0,1,1), nrow = 5, byrow = TRUE)
-m_reg <- suppressWarnings(matrix(rep(0:1, 11), nrow = 5))
+chess <- matrix(rep(c(rep(c(1, 0), 4), rep(c(0,1), 4)), 4), nrow = 8)
 m_lowest <- low_matrix(5)
 mm_big <- test_matrix(100)
 m_big_lowest <- low_matrix(100)
 
 plot_ks(mm)
-plot_ks(m_reg)
+plot_ks(chess)
 plot_ks(m_lowest)
 plot_ks(mm_big)
 plot_ks(m_big_lowest)
