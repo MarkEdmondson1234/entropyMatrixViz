@@ -1,4 +1,4 @@
-library(purrr)
+library(tidyverse)
 
 # A random 0 or 1 square matrix of dimensions n*m
 test_matrix <- function(n, m = n){
@@ -26,13 +26,16 @@ f_subset <- function(my_matrix, k, f = sum){
 
 }
 
+# calculates entropy per k
 all_ks <- function(my_matrix){
   my_dim <- dim(my_matrix)
   along <- 1:(min(my_dim))
   along <- setNames(along, along)
+  
   map_dbl(along, ~ sum(log2(f_subset(my_matrix, .) / sum(f_subset(my_matrix, .))))*(-1))
 }
 
+# plots each matrix with k and entropy
 plot_ks <- function(my_matrix){
   my_dim <- dim(my_matrix)
 
@@ -53,23 +56,17 @@ plot_ks <- function(my_matrix){
   along
 }
 
-my_matrix <- test_matrix(8)
-mm <- matrix(c(1,0,0,0,1,0,0,1,0,0,0,1,0,1,1,1,0,0,0,0,0,1,0,1,1), nrow = 5, byrow = TRUE)
-life <- matrix(c(0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0), nrow = 5, byrow = TRUE)
-chess <- matrix(rep(c(rep(c(1, 0), 4), rep(c(0,1), 4)), 4), nrow = 8)
-m_highest <- low_matrix(8)
-m_lowest <- low_matrix(8, x = 0)
 
-plot_ks(test_matrix(5))
-plot_ks(life)
+## order matrices from lowest to highest - must be same dims
+entropy_order <- function(matrices){
+  
+  matrices %>% 
+    map(all_ks) %>% 
+    reduce(bind_rows) %>% 
+    mutate(index = row_number()) %>% 
+    arrange_all() %>% 
+    pull(index) %>% 
+    matrices[.]
+  
+}
 
-plot_ks(chess)
-plot_ks(test_matrix(8))
-
-plot_ks(m_lowest)
-plot_ks(m_highest)
-
-mm_big <- test_matrix(100)
-m_big_lowest <- low_matrix(100)
-plot_ks(mm_big)
-plot_ks(m_big_lowest)
