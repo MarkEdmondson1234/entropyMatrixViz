@@ -26,20 +26,24 @@ f_subset <- function(my_matrix, k, f = sum){
 
 }
 
+# a named vector of entropy for k
 # calculates entropy per k
 all_ks <- function(my_matrix){
   my_dim <- dim(my_matrix)
   along <- 1:(min(my_dim))
   along <- setNames(along, along)
   
-  map_dbl(along, ~ sum(log2(f_subset(my_matrix, .) / sum(f_subset(my_matrix, .))))*(-1))
+  map_dbl(along, 
+          ~ sum(log2(f_subset(my_matrix, .) / sum(f_subset(my_matrix, .))))*(-1))
 }
 
 # plots each matrix with k and entropy
-plot_ks <- function(my_matrix){
+#' @param k TRUE if all, or a vector of which k to plot
+plot_ks <- function(my_matrix, k = TRUE){
   my_dim <- dim(my_matrix)
 
   along <- all_ks(my_matrix)
+  along <- along[k]
   
   par(mfrow = c(ceiling(sqrt(my_dim[1])), ceiling(sqrt(my_dim[2]))),
       mar = c(1.5,1.5,1.5,1.5))
@@ -61,12 +65,24 @@ plot_ks <- function(my_matrix){
 entropy_order <- function(matrices){
   
   matrices %>% 
-    map(all_ks) %>% 
-    reduce(bind_rows) %>% 
-    mutate(index = row_number()) %>% 
+    as_entropy_df %>% 
     arrange_all() %>% 
     pull(index) %>% 
     matrices[.]
   
+}
+
+# creates a dataframe of entropies for matricies passed in
+as_entropy_df <- function(matrices){
+  matrices %>% 
+    map(all_ks) %>% 
+    reduce(bind_rows) %>% 
+    mutate(index = row_number())
+}
+
+dedupe_matrices <- function(matrices){
+  
+  matrices[!duplicated(matrices)]
+
 }
 

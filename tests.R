@@ -32,3 +32,15 @@ matrices %>%
   entropy_order %>% 
   map(plot_ks) %>% 
   reduce(bind_rows)
+
+
+## Make a lot of matrices
+matrices4 <- map(1:1000, ~ test_matrix(4)) %>% 
+  dedupe_matrices %>%
+  entropy_order
+
+matrices4 %>% 
+  as_entropy_df
+
+matrices4 %>% 
+  map(~ plot_ks(.,k = "2"))
